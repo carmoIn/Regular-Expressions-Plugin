@@ -20,6 +20,7 @@
 #include <string>
 #include <oniguruma.h>
 #include <amx/amx.h>
+#include <amx/amx2.h>
 #include <plugincommon.h>
 #define PLUGIN_VERSION "0.2"
 
@@ -160,12 +161,12 @@ cell AMX_NATIVE_CALL pawn_regex_search(AMX* amx, cell* params)
 cell AMX_NATIVE_CALL pawn_regex_replace(AMX* amx, cell* params)
 {
 	regex_t* RegExpr;
-	const char *rexp = NULL, *string = NULL, *replace = NULL;
+	const char *rexp = NULL, *string = NULL;
 	cell* addr = NULL;
 	amx_GetAddr(amx, params[1], &addr);
 	amx_StrParam(amx, params[1], string);
 	amx_StrParam(amx, params[2], rexp);
-	amx_StrParam(amx, params[3], replace);
+	std::string replace = amx_GetCppString(amx, params[3]);
 	if(string && rexp)
 	{
 		int r=NULL;
@@ -401,11 +402,11 @@ cell AMX_NATIVE_CALL pawn_regex_exsearch(AMX* amx, cell* params)
 
 cell AMX_NATIVE_CALL pawn_regex_exreplace(AMX* amx, cell* params)
 {
-	const char *string = NULL, *replace = NULL;
+	const char *string = NULL;
 	cell* addr = NULL;
 	amx_GetAddr(amx, params[1], &addr);
 	amx_StrParam(amx, params[1], string);
-	amx_StrParam(amx, params[3], replace);
+	std::string replace = amx_GetCppString(amx, params[3]);
 	if(string)
 	{
 		int id=(int)params[2];
