@@ -16,6 +16,10 @@
 				//                                                                       //
 				///////////////////////////////////////////////////////////////////////////
 
+#if defined LINUX
+	#include <cstring>
+#endif
+
 #include <malloc.h>
 #include <string>
 #include <oniguruma.h>
